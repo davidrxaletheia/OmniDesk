@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Service Dashboard - Glassmorphism</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- imagen -->
+    <link rel="icon" type="image/png" href="pixelart.gif">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Base typography and background from the design guide */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Fondo con imagen: uso de pixelart.gif (ubicada en la misma carpeta `public`).
+               - background-color como fallback
+               - background-image apunta al archivo
+               - no-repeat y center para centrar la imagen
+               - background-size: cover para cubrir toda la pantalla
+               - background-attachment: fixed para que quede fijo al hacer scroll
+            */
+            background-color: #ffffff;
+            background-image: url('pixelart.gif');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        /* The core .glass-effect class as defined in the design guide */
+        .glass-effect {
+            background-color: #ffffff;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px); /* Safari support */
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .glass-effect:hover {
+            box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.08);
+        }
+
+        /* Sidebar link styling */
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem; /* p-3 */
+            border-radius: 0.75rem; /* rounded-xl */
+            color: #374151; /* text-gray-700 */
+            font-weight: 500; /* font-medium */
+            transition: all 0.3s ease-in-out;
+        }
+
+        .sidebar-link:hover {
+            background-color: #f3f4f6;
+        }
+
+        .sidebar-link.active {
+            background-color: #e5e7eb;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+            color: #1a202c; /* text-gray-900 */
+            font-weight: 600; /* font-semibold */
+        }
+
+        /* Standard icon size */
+        .icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Hide scrollbars but keep functionality */
+        .hide-scrollbar {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* Internet Explorer 10+ */
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+    </style>
+</head>
+<body class="min-h-screen text-gray-800">
+
+    <div class="flex h-screen p-4 gap-4">
+
+        <!-- ===== Sidebar ===== -->
+        <aside class="w-64 flex-shrink-0 flex flex-col gap-4">
+            <!-- Logo & Brand -->
+            <div class="glass-effect rounded-2xl p-5 flex items-center gap-3">
+                <div class="bg-blue-500 p-2 rounded-xl text-white">
+                    <i data-lucide="shield-check" class="w-6 h-6"></i>
+                </div>
+                <span class="text-xl font-bold text-gray-800">OmniDesk</span>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="glass-effect rounded-2xl p-3 flex-grow">
+                <div class="space-y-2">
+                    <a href="#" id="btn-dashboard" class="sidebar-link active">
+                        <i data-lucide="layout-dashboard" class="icon mr-3"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" id="btn-inbox" class="sidebar-link">
+                        <i data-lucide="inbox" class="icon mr-3"></i>
+                        <span>Inbox</span>
+                        <span class="ml-auto bg-blue-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">3</span>
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        <i data-lucide="users" class="icon mr-3"></i>
+                        <span>Customers</span>
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        <i data-lucide="bar-chart-3" class="icon mr-3"></i>
+                        <span>Reports</span>
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        <i data-lucide="settings" class="icon mr-3"></i>
+                        <span>Settings</span>
+                    </a>
+                </div>
+            </nav>
+
+            <!-- User Profile -->
+            <div class="glass-effect rounded-2xl p-4 flex items-center gap-3">
+                <img src="https://placehold.co/40x40/3b82f6/ffffff?text=A" alt="User Avatar" class="rounded-full">
+                <div>
+                    <p class="font-semibold text-gray-800">Ana Lopez</p>
+                    <p class="text-xs text-gray-600">Admin</p>
+                </div>
+                <button class="ml-auto text-gray-500 hover:text-gray-800">
+                    <i data-lucide="log-out" class="icon"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ===== Main Content ===== -->
+        <main class="flex-1 flex flex-col gap-4">
+            
+            <!-- Header -->
+            <header class="glass-effect rounded-2xl p-4 flex items-center">
+                <div>
+                    <h1 class="text-2xl font-extrabold text-gray-900">Bienvenida, Ana</h1>
+                    <p class="text-sm text-gray-600">Aquí está el resumen de la actividad de hoy.</p>
+                </div>
+                <div class="ml-auto flex items-center gap-4">
+                    <!-- Search Bar -->
+                    <div class="relative">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500"></i>
+                        <input type="text" placeholder="Buscar ticket, cliente..." class="bg-gray-50 w-64 rounded-xl py-2 pl-10 pr-4 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-300 placeholder-gray-500">
+                    </div>
+                     <!-- Icon Buttons -->
+                    <button class="p-2 rounded-full bg-gray-50 hover:bg-gray-100 transition-colors">
+                        <i data-lucide="bell" class="icon text-gray-700"></i>
+                    </button>
+                     <button class="p-2 rounded-full bg-gray-50 hover:bg-gray-100 transition-colors">
+                        <i data-lucide="help-circle" class="icon text-gray-700"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div id="dashboard-view" class="flex-1 overflow-y-auto pr-2 hide-scrollbar">
+                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                    <!-- Pending Tickets -->
+                    <div class="glass-effect rounded-2xl p-3 col-span-full">
+                        <div class="grid grid-cols-3 gap-3">
+                            <!-- High Priority Column -->
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                                    <h3 class="text-sm font-semibold text-gray-700">Alta</h3>
+                                </div>
+                                <div class="space-y-1.5">
+                                    <div class="bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors cursor-pointer">
+                                        <p class="text-sm font-medium text-gray-800">#78452</p>
+                                        <p class="text-xs text-gray-600">Error en facturación</p>
+                                    </div>
+                                    <div class="bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors cursor-pointer">
+                                        <p class="text-sm font-medium text-gray-800">#78451</p>
+                                        <p class="text-xs text-gray-600">Problema con envío</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Medium Priority Column -->
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                                    <h3 class="text-sm font-semibold text-gray-700">Media</h3>
+                                </div>
+                                <div class="space-y-1.5">
+                                    <div class="bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors cursor-pointer">
+                                        <p class="text-sm font-medium text-gray-800">#78450</p>
+                                        <p class="text-xs text-gray-600">Consulta de producto</p>
+                                    </div>
+                                    <div class="bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors cursor-pointer">
+                                        <p class="text-sm font-medium text-gray-800">#78449</p>
+                                        <p class="text-xs text-gray-600">Información de envío</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Low Priority Column -->
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                                    <h3 class="text-sm font-semibold text-gray-700">Baja</h3>
+                                </div>
+                                <div class="space-y-1.5">
+                                    <div class="bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors cursor-pointer">
+                                        <p class="text-sm font-medium text-gray-800">#78448</p>
+                                        <p class="text-xs text-gray-600">Solicitud de catálogo</p>
+                                    </div>
+                                    <div class="bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors cursor-pointer">
+                                        <p class="text-sm font-medium text-gray-800">#78447</p>
+                                        <p class="text-xs text-gray-600">Consulta general</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Vista General -->
+                    <div class="glass-effect rounded-2xl p-5">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">Vista General</h2>
+                        <div class="space-y-4">
+                            <!-- Daily Activities -->
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <h3 class="font-medium text-gray-700 mb-3">Actividades del Día</h3>
+                                <div class="space-y-3">
+                                    <!-- Activity 1 -->
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-blue-500 mt-2"></div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-800">Reunión con Equipo de Soporte</p>
+                                            <p class="text-xs text-gray-600">10:00 AM - 11:00 AM</p>
+                                        </div>
+                                    </div>
+                                    <!-- Activity 2 -->
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-green-500 mt-2"></div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-800">Revisión de Tickets Pendientes</p>
+                                            <p class="text-xs text-gray-600">11:30 AM - 12:30 PM</p>
+                                        </div>
+                                    </div>
+                                    <!-- Activity 3 -->
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-orange-500 mt-2"></div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-800">Capacitación de Nuevos Agentes</p>
+                                            <p class="text-xs text-gray-600">2:00 PM - 3:30 PM</p>
+                                        </div>
+                                    </div>
+                                    <!-- Activity 4 -->
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-purple-500 mt-2"></div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-800">Reporte de Rendimiento</p>
+                                            <p class="text-xs text-gray-600">4:00 PM - 5:00 PM</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quick Actions -->
+                            <div class="flex justify-between items-center mt-4">
+                                <button class="p-3 bg-blue-100 rounded-xl hover:bg-blue-200 transition-colors">
+                                    <i data-lucide="calendar" class="w-6 h-6 text-blue-500"></i>
+                                </button>
+                                <button class="p-3 bg-orange-100 rounded-xl hover:bg-orange-200 transition-colors">
+                                    <i data-lucide="ticket" class="w-6 h-6 text-orange-500"></i>
+                                </button>
+                                <button class="p-3 bg-purple-100 rounded-xl hover:bg-purple-200 transition-colors">
+                                    <i data-lucide="bar-chart-2" class="w-6 h-6 text-purple-500"></i>
+                                </button>
+                                <button class="p-3 bg-green-100 rounded-xl hover:bg-green-200 transition-colors">
+                                    <i data-lucide="user-plus" class="w-6 h-6 text-green-500"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mailbox -->
+                    <div class="glass-effect rounded-2xl p-5 xl:col-span-2">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-lg font-semibold text-gray-800">Bandeja de Entrada</h2>
+                            <span class="text-sm text-gray-600">3 nuevos</span>
+                        </div>
+                        <div class="space-y-3">
+                            <!-- Email 1 -->
+                            <div class="bg-gray-50 rounded-xl p-3 hover:bg-gray-100 transition-colors cursor-pointer">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+                                        <i data-lucide="mail" class="w-5 h-5 text-blue-500"></i>
+                                    </div>
+                                    <div class="flex-grow min-w-0">
+                                        <div class="flex justify-between items-baseline">
+                                            <h3 class="font-semibold text-gray-800">Carlos Rodríguez</h3>
+                                            <span class="text-xs text-gray-500">10:30 AM</span>
+                                        </div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">Re: Problema con factura #12345</p>
+                                        <p class="text-sm text-gray-600 truncate">Gracias por su respuesta. ¿Podría proporcionarme más detalles sobre...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Email 2 -->
+                            <div class="bg-gray-50 rounded-xl p-3 hover:bg-gray-100 transition-colors cursor-pointer">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center shrink-0">
+                                        <i data-lucide="mail" class="w-5 h-5 text-green-500"></i>
+                                    </div>
+                                    <div class="flex-grow min-w-0">
+                                        <div class="flex justify-between items-baseline">
+                                            <h3 class="font-semibold text-gray-800">María González</h3>
+                                            <span class="text-xs text-gray-500">09:45 AM</span>
+                                        </div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">Consulta sobre envío express</p>
+                                        <p class="text-sm text-gray-600 truncate">Buenos días, necesito información sobre las opciones de envío...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Email 3 -->
+                            <div class="bg-gray-50 rounded-xl p-3 hover:bg-gray-100 transition-colors cursor-pointer">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center shrink-0">
+                                        <i data-lucide="mail" class="w-5 h-5 text-purple-500"></i>
+                                    </div>
+                                    <div class="flex-grow min-w-0">
+                                        <div class="flex justify-between items-baseline">
+                                            <h3 class="font-semibold text-gray-800">Juan Martínez</h3>
+                                            <span class="text-xs text-gray-500">09:15 AM</span>
+                                        </div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">Solicitud de devolución</p>
+                                        <p class="text-sm text-gray-600 truncate">Hola, quisiera iniciar el proceso de devolución del producto...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <a href="#" class="text-sm text-blue-600 hover:text-blue-700 font-medium inline-flex items-center gap-1">
+                                <span>Ver todos los correos</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+
+            <!-- Inbox View (Initially Hidden) -->
+            <div id="inbox-view" class="hidden flex-1 glass-effect rounded-2xl overflow-hidden">
+                <div class="flex h-full">
+                    <!-- Inbox List -->
+                    <div class="w-1/4 border-r border-gray-200 flex flex-col">
+                        <div class="p-4 border-b border-gray-200">
+                            <h2 class="text-lg font-semibold text-gray-800">Bandeja de Entrada</h2>
+                        </div>
+                        <div class="flex-grow overflow-y-auto p-2 space-y-2 hide-scrollbar">
+                             <div class="p-3 rounded-xl cursor-pointer bg-blue-50 border border-blue-200">
+                                <div class="flex justify-between items-baseline">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
+                                            <i data-lucide="message-circle" class="w-4 h-4 text-white"></i>
+                                        </div>
+                                        <span class="font-bold text-gray-900">Juan Pérez</span>
+                                    </div>
+                                    <span class="text-xs text-gray-600">5m</span>
+                                </div>
+                                <p class="text-sm text-gray-700 truncate ml-10">Problema con mi último pedido</p>
+                                <div class="flex items-center gap-2 mt-1 ml-10">
+                                    <span class="text-xs bg-red-200 text-red-800 font-semibold px-2 py-0.5 rounded-full">Urgente</span>
+                                    <span class="text-xs bg-green-100 text-green-800 font-semibold px-2 py-0.5 rounded-full">WhatsApp</span>
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                                <div class="flex justify-between items-baseline">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center">
+                                            <i data-lucide="facebook" class="w-4 h-4 text-white"></i>
+                                        </div>
+                                        <span class="font-semibold text-gray-700">María García</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500">12m</span>
+                                </div>
+                                <p class="text-sm text-gray-600 truncate ml-10">Hola! Quería saber el estado de...</p>
+                                <div class="flex items-center gap-2 mt-1 ml-10">
+                                    <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded-full">Facebook</span>
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                                <div class="flex justify-between items-baseline">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-full bg-pink-500 flex items-center justify-center">
+                                            <i data-lucide="instagram" class="w-4 h-4 text-white"></i>
+                                        </div>
+                                        <span class="font-semibold text-gray-700">Ana Torres</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500">2h</span>
+                                </div>
+                                <p class="text-sm text-gray-600 truncate ml-10">Consulta sobre política de devolución</p>
+                                <div class="flex items-center gap-2 mt-1 ml-10">
+                                    <span class="text-xs bg-pink-100 text-pink-800 font-semibold px-2 py-0.5 rounded-full">Instagram</span>
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                                <div class="flex justify-between items-baseline">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
+                                            <i data-lucide="message-circle" class="w-4 h-4 text-white"></i>
+                                        </div>
+                                        <span class="font-semibold text-gray-700">Carlos Ruiz</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500">3h</span>
+                                </div>
+                                <p class="text-sm text-gray-600 truncate ml-10">¿Tienen envío express disponible?</p>
+                                <div class="flex items-center gap-2 mt-1 ml-10">
+                                    <span class="text-xs bg-green-100 text-green-800 font-semibold px-2 py-0.5 rounded-full">WhatsApp</span>
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                                <div class="flex justify-between items-baseline">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center">
+                                            <i data-lucide="facebook" class="w-4 h-4 text-white"></i>
+                                        </div>
+                                        <span class="font-semibold text-gray-700">Laura Méndez</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500">4h</span>
+                                </div>
+                                <p class="text-sm text-gray-600 truncate ml-10">Recomendación de productos</p>
+                                <div class="flex items-center gap-2 mt-1 ml-10">
+                                    <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded-full">Facebook</span>
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                                <div class="flex justify-between items-baseline">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-full bg-pink-500 flex items-center justify-center">
+                                            <i data-lucide="instagram" class="w-4 h-4 text-white"></i>
+                                        </div>
+                                        <span class="font-semibold text-gray-700">Roberto Silva</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500">5h</span>
+                                </div>
+                                <p class="text-sm text-gray-600 truncate ml-10">Problema con mi cuenta</p>
+                                <div class="flex items-center gap-2 mt-1 ml-10">
+                                    <span class="text-xs bg-pink-100 text-pink-800 font-semibold px-2 py-0.5 rounded-full">Instagram</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Conversation Area -->
+                    <div class="flex-grow flex flex-col bg-gray-50">
+                         <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
+                                    <i data-lucide="message-circle" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-lg text-gray-900">Juan Pérez</h3>
+                                    <div class="flex items-center gap-2">
+                                        <p class="text-sm text-gray-600">Ticket #78452</p>
+                                        <span class="text-xs bg-green-100 text-green-800 font-semibold px-2 py-0.5 rounded-full">WhatsApp</span>
+                                    </div>
+                                </div>
+                            </div>
+                             <button class="flex items-center gap-2 px-4 py-2 rounded-xl bg-green-500 text-white font-semibold hover:bg-green-600 transition-colors">
+                                 <i data-lucide="check-circle" class="w-4 h-4"></i>
+                                 <span>Resolver</span>
+                             </button>
+                        </div>
+                        <div class="flex-grow p-4 overflow-y-auto space-y-4 hide-scrollbar">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center font-bold text-gray-600 shrink-0">JP</div>
+                                <div class="bg-white p-3 rounded-lg rounded-tl-none max-w-lg border border-gray-200">
+                                    <p class="text-sm text-gray-800">Hola, he tenido un problema con mi último pedido #12345. La factura parece incorrecta. ¿Me pueden ayudar?</p>
+                                    <p class="text-xs text-gray-500 text-right mt-1">10:30 AM</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 flex-row-reverse">
+                                <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center font-bold text-white shrink-0">A</div>
+                                <div class="bg-blue-500 text-white p-3 rounded-lg rounded-tr-none max-w-lg">
+                                    <p class="text-sm">Hola Juan, claro que sí. Permíteme un momento para revisar tu factura.</p>
+                                    <p class="text-xs text-blue-100 text-right mt-1">10:31 AM</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 border-t border-gray-200">
+                            <div class="relative">
+                                <textarea class="w-full p-3 pr-28 rounded-xl bg-white border border-gray-200 focus:ring-2 focus:ring-blue-300 focus:outline-none resize-none" rows="3" placeholder="Escribe tu respuesta..."></textarea>
+                                <button class="absolute right-3 top-3 px-4 py-2 rounded-lg bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-colors">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Customer Context -->
+                    <div class="w-1/4 border-l border-gray-200 p-4 overflow-y-auto space-y-6 hide-scrollbar">
+                        <h3 class="text-lg font-semibold text-gray-800">Contexto del Cliente</h3>
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">Datos CRM</h4>
+                            <div class="text-sm space-y-1">
+                                <p><strong class="text-gray-600">Cliente desde:</strong> 15/01/2022</p>
+                                <p><strong class="text-gray-600">Última compra:</strong> 10/06/2025</p>
+                                <p class="inline-flex items-center gap-2 font-bold text-purple-600"><i data-lucide="gem" class="w-4 h-4"></i> Cliente VIP</p>
+                            </div>
+                        </div>
+                         <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">Historial Reciente</h4>
+                            <ul class="list-disc list-inside text-sm space-y-1 text-gray-700">
+                                <li>Ticket #12301 (Resuelto)</li>
+                                <li>Llamada (05/06/2025)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">Notas Internas</h4>
+                            <div class="text-sm bg-yellow-50 p-3 rounded-lg border border-yellow-200">
+                                <p>Cliente contactó previamente por un problema similar con la entrega.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // View switching logic
+        const btnDashboard = document.getElementById('btn-dashboard');
+        const btnInbox = document.getElementById('btn-inbox');
+        const dashboardView = document.getElementById('dashboard-view');
+        const inboxView = document.getElementById('inbox-view');
+        
+        const navLinks = [btnDashboard, btnInbox];
+        const views = [dashboardView, inboxView];
+
+        function switchView(activeIndex) {
+            navLinks.forEach((link, index) => {
+                if (index === activeIndex) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            views.forEach((view, index) => {
+                 if (index === activeIndex) {
+                    view.classList.remove('hidden');
+                    // Use flex for views that should be visible
+                    if(view.id === 'inbox-view') {
+                        view.classList.add('flex');
+                        document.querySelector('header').classList.add('hidden');
+                    } else {
+                        document.querySelector('header').classList.remove('hidden');
+                    }
+                } else {
+                    view.classList.add('hidden');
+                    view.classList.remove('flex');
+                }
+            });
+        }
+
+        btnDashboard.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchView(0);
+        });
+
+        btnInbox.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchView(1);
+        });
+
+        // Set initial view
+        switchView(0);
+    </script>
+</body>
+</html>

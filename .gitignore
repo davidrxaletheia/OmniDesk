@@ -1,0 +1,5 @@
+.env
+#entorno virtual, carpeta .venv
+.venv/
+venv/
+env/
