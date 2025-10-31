@@ -79,7 +79,7 @@ CREATE TABLE `app_user` (
   UNIQUE KEY `uq_app_user_username` (`username`),
   UNIQUE KEY `uq_app_user_email` (`email`),
   KEY `idx_app_user_role_active` (`role`,`active`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `app_user` (
 
 LOCK TABLES `app_user` WRITE;
 /*!40000 ALTER TABLE `app_user` DISABLE KEYS */;
-INSERT INTO `app_user` VALUES (1,'Admin User','admin','admin@example.com','$2b$12$luIj2PUAJ8xDRy26IlBEz.ql5mwvQWhsGFvHgqaO06BRxWWSies56','admin',1,NULL,NULL,0,NULL,'2025-10-31 21:45:33','2025-10-31 21:45:33'),(2,'Empleado','employee','empleado@example.com','$2b$12$ETUbVKnCUGV7Jg6konXvou6jRDXF/gwh771.55Qf6tLp.lv5Fsdsq','empleado',1,NULL,NULL,0,NULL,'2025-10-31 21:45:33','2025-10-31 21:45:33'),(3,'Dev Seed x0chipa','x0chipa','dev+x0chipa@example.test','$2b$12$C9L1FmcyA7DgYi5wjymH4.SgoL0PdvmzM7Zb1gbsvYdYlIWqXkIOS','admin',1,NULL,NULL,0,NULL,'2025-10-31 21:45:40','2025-10-31 21:45:40');
+INSERT INTO `app_user` VALUES (1,'Admin User','admin','admin@example.com','$2b$12$peacv8OCs/oYVvElqpZsFeLyU90ISmLix2.K6Jb3osb.T3uBVk9K6','admin',1,NULL,NULL,0,NULL,'2025-10-31 22:43:33','2025-10-31 22:43:33'),(2,'Empleado','employee','empleado@example.com','$2b$12$UxUGF.3JZFFgy27OE5d.v.TWbdArs6xqVvWk27LcC.n11O/bA8eWO','empleado',1,NULL,NULL,0,NULL,'2025-10-31 22:43:33','2025-10-31 22:43:33'),(3,'Dev Seed x0chipa','x0chipa','dev+x0chipa@example.test','$2b$12$lBYyyDGdw3d7NmWqJWx.3OGlBjwoyrnvWb4QWsOQWj9ngQ886r7gG','admin',1,NULL,NULL,0,NULL,'2025-10-31 22:43:33','2025-10-31 22:43:33');
 /*!40000 ALTER TABLE `app_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +114,7 @@ CREATE TABLE `calendar_event` (
   CONSTRAINT `fk_event_creator` FOREIGN KEY (`created_by`) REFERENCES `app_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_event_ticket` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`ticket_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `CONSTRAINT_1` CHECK (`end_time` >= `start_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +123,7 @@ CREATE TABLE `calendar_event` (
 
 LOCK TABLES `calendar_event` WRITE;
 /*!40000 ALTER TABLE `calendar_event` DISABLE KEYS */;
-INSERT INTO `calendar_event` VALUES (1,'Test Event pytest','Event created during test','2025-11-01 09:00:00','2025-11-01 10:00:00',NULL,NULL),(2,'Test Event pytest','Event created during test','2025-11-01 09:00:00','2025-11-01 10:00:00',NULL,NULL),(3,'Test Event pytest','Event created during test','2025-11-01 09:00:00','2025-11-01 10:00:00',NULL,NULL),(4,'Test Event pytest','Event created during test','2025-11-01 09:00:00','2025-11-01 10:00:00',NULL,NULL),(5,'Test Event pytest','Event created during test','2025-11-01 09:00:00','2025-11-01 10:00:00',NULL,NULL),(6,'Test Event pytest','Event created during test','2025-11-01 09:00:00','2025-11-01 10:00:00',NULL,NULL),(7,'Test Event pytest','Event created during test','2025-11-01 09:00:00','2025-11-01 10:00:00',NULL,NULL),(8,'Test Event pytest','Event created during test','2025-11-01 09:00:00','2025-11-01 10:00:00',NULL,NULL),(9,'Test Event pytest','Event created during test','2025-11-01 09:00:00','2025-11-01 10:00:00',NULL,NULL),(10,'Test Event pytest','Event created during test','2025-11-01 09:00:00','2025-11-01 10:00:00',NULL,NULL),(11,'Test Event pytest','Event created during test','2025-11-01 09:00:00','2025-11-01 10:00:00',NULL,NULL),(12,'Test Event pytest','Event created during test','2025-11-01 09:00:00','2025-11-01 10:00:00',NULL,NULL);
+INSERT INTO `calendar_event` VALUES (1,'Test Event pytest','Event created during test','2025-11-01 09:00:00','2025-11-01 10:00:00',NULL,NULL),(2,'Test Event pytest','Event created during test','2025-11-01 09:00:00','2025-11-01 10:00:00',NULL,NULL);
 /*!40000 ALTER TABLE `calendar_event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -316,7 +316,7 @@ CREATE TABLE `client` (
   KEY `idx_client_registered_at` (`registered_at`),
   CONSTRAINT `fk_client_created_by` FOREIGN KEY (`created_by`) REFERENCES `app_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_client_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `app_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -325,7 +325,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (1,'María López','+5215512345678','maria@example.com',NULL,NULL,'normal','active','2025-10-31 15:45:33','2025-10-31 21:45:33',NULL,NULL,NULL),(2,'Ana Cliente','+521234567890','ana.client@example.com',NULL,NULL,'normal','active','2025-10-31 16:27:00','2025-10-31 22:27:00',NULL,NULL,NULL),(4,'Premium Test','00','prem@test.com',NULL,NULL,'premium','active','2025-10-31 16:34:09','2025-10-31 22:34:09',NULL,NULL,NULL),(6,'Premium Test','902a0f371','prem+02a0f371@test.com',NULL,NULL,'premium','active','2025-10-31 16:34:45','2025-10-31 22:34:45',NULL,NULL,NULL),(7,'Premium Test','984703f3b','prem+84703f3b@test.com',NULL,NULL,'premium','active','2025-10-31 16:34:52','2025-10-31 22:34:52',NULL,NULL,NULL),(8,'Premium Test','976407deb','prem+76407deb@test.com',NULL,NULL,'premium','active','2025-10-31 16:39:30','2025-10-31 22:39:30',NULL,NULL,NULL),(9,'Premium Test','9b0254537','prem+b0254537@test.com',NULL,NULL,'premium','active','2025-10-31 16:39:55','2025-10-31 22:39:55',NULL,NULL,NULL),(10,'Premium Test','99d1d39a6','prem+9d1d39a6@test.com',NULL,NULL,'premium','active','2025-10-31 16:41:45','2025-10-31 22:41:45',NULL,NULL,NULL),(11,'Premium Test','97c09f361','prem+7c09f361@test.com',NULL,NULL,'premium','active','2025-10-31 16:42:30','2025-10-31 22:42:30',NULL,NULL,NULL),(13,'Premium Test','910b7df06','prem+10b7df06@test.com',NULL,NULL,'premium','active','2025-10-31 16:42:38','2025-10-31 22:42:38',NULL,NULL,NULL),(14,'Ana Cliente','+5210472ec11','ana.client+4398b4a5@example.com',NULL,NULL,'normal','active','2025-10-31 16:43:02','2025-10-31 22:43:02',NULL,NULL,NULL),(15,'Premium Test','9c2581b26','prem+c2581b26@test.com',NULL,NULL,'premium','active','2025-10-31 16:43:02','2025-10-31 22:43:02',NULL,NULL,NULL);
+INSERT INTO `client` VALUES (1,'María López','+5215512345678','maria@example.com',NULL,NULL,'normal','active','2025-10-31 16:43:33','2025-10-31 22:43:33',NULL,NULL,NULL),(2,'Ana Cliente','+52150d08539','ana.client+3092a8a9@example.com',NULL,NULL,'normal','active','2025-10-31 16:43:37','2025-10-31 22:43:37',NULL,NULL,NULL),(3,'Premium Test','967f8036b','prem+67f8036b@test.com',NULL,NULL,'premium','active','2025-10-31 16:43:37','2025-10-31 22:43:37',NULL,NULL,NULL),(4,'Ana Cliente','+5217d62866d','ana.client+9af56212@example.com',NULL,NULL,'normal','active','2025-10-31 17:10:20','2025-10-31 23:10:20',NULL,NULL,NULL),(5,'Premium Test','99d7340a6','prem+9d7340a6@test.com',NULL,NULL,'premium','active','2025-10-31 17:10:20','2025-10-31 23:10:20',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -403,7 +403,7 @@ CREATE TABLE `customer_order` (
 
 LOCK TABLES `customer_order` WRITE;
 /*!40000 ALTER TABLE `customer_order` DISABLE KEYS */;
-INSERT INTO `customer_order` VALUES (1,1,'2025-10-31 15:45:33','2025-10-31 21:45:33','borrador','pendiente',1200.00,0.00,0.00,0.00,1200.00,'Orden demo',NULL,NULL),(2,2,'2025-10-31 16:27:00','2025-10-31 22:27:00','borrador','pendiente',1200.00,0.00,0.00,0.00,1200.00,'Order from test',NULL,NULL),(3,13,'2025-10-31 16:42:38','2025-10-31 22:42:38','borrador','pendiente',1200.00,120.00,0.00,0.00,1080.00,'Premium order',NULL,NULL),(4,14,'2025-10-31 16:43:02','2025-10-31 22:43:02','borrador','pendiente',1200.00,0.00,0.00,0.00,1200.00,'Order from test',NULL,NULL),(5,15,'2025-10-31 16:43:02','2025-10-31 22:43:02','borrador','pendiente',1200.00,120.00,0.00,0.00,1080.00,'Premium order',NULL,NULL);
+INSERT INTO `customer_order` VALUES (1,1,'2025-10-31 16:43:33','2025-10-31 22:43:33','borrador','pendiente',1200.00,0.00,0.00,0.00,1200.00,'Orden demo',NULL,NULL),(2,2,'2025-10-31 16:43:37','2025-10-31 22:43:37','borrador','pendiente',1200.00,0.00,0.00,0.00,1200.00,'Order from test',NULL,NULL),(3,3,'2025-10-31 16:43:37','2025-10-31 22:43:37','borrador','pendiente',1200.00,120.00,0.00,0.00,1080.00,'Premium order',NULL,NULL),(4,4,'2025-10-31 17:10:20','2025-10-31 23:10:20','borrador','pendiente',1200.00,0.00,0.00,0.00,1200.00,'Order from test',NULL,NULL),(5,5,'2025-10-31 17:10:20','2025-10-31 23:10:20','borrador','pendiente',1200.00,120.00,0.00,0.00,1080.00,'Premium order',NULL,NULL);
 /*!40000 ALTER TABLE `customer_order` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -672,7 +672,7 @@ CREATE TABLE `product` (
   KEY `idx_product_name` (`name`),
   FULLTEXT KEY `ftx_product_nd` (`name`,`description`),
   CONSTRAINT `fk_product_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -681,7 +681,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'P-100','Router X100','Router inalámbrico',NULL,NULL,1200.00,10,'active','2025-10-31 21:45:33','2025-10-31 21:45:33'),(2,'P-101','Switch S24','Switch 24 puertos',NULL,NULL,2500.00,5,'active','2025-10-31 21:45:33','2025-10-31 21:45:33'),(3,'P-102','Cable CAT6','Cable de red 1m',NULL,NULL,20.00,200,'active','2025-10-31 21:45:33','2025-10-31 21:45:33'),(4,'RB-3','RB Product 3',NULL,NULL,NULL,30.00,2,'active','2025-10-31 21:59:52','2025-10-31 21:59:52'),(7,'RB-cbcaaa22','RB Product 3',NULL,NULL,NULL,30.00,2,'active','2025-10-31 22:01:13','2025-10-31 22:01:13'),(8,'RB-f36d421c','RB Product 3',NULL,NULL,NULL,30.00,2,'active','2025-10-31 22:14:55','2025-10-31 22:14:55'),(9,'RB-4735dd9d','RB Product 3',NULL,NULL,NULL,30.00,2,'active','2025-10-31 22:24:27','2025-10-31 22:24:27'),(10,'RB-f7d422b7','RB Product 3',NULL,NULL,NULL,30.00,2,'active','2025-10-31 22:27:00','2025-10-31 22:27:00'),(11,'RB-798c8716','RB Product 3',NULL,NULL,NULL,30.00,2,'active','2025-10-31 22:34:09','2025-10-31 22:34:09'),(12,'RB-515f9c09','RB Product 3',NULL,NULL,NULL,30.00,2,'active','2025-10-31 22:42:39','2025-10-31 22:42:39'),(13,'RB-e824d5e3','RB Product 3',NULL,NULL,NULL,30.00,2,'active','2025-10-31 22:43:02','2025-10-31 22:43:02');
+INSERT INTO `product` VALUES (1,'P-100','Router X100','Router inalámbrico',NULL,NULL,1200.00,10,'active','2025-10-31 22:43:33','2025-10-31 22:43:33'),(2,'P-101','Switch S24','Switch 24 puertos',NULL,NULL,2500.00,5,'active','2025-10-31 22:43:33','2025-10-31 22:43:33'),(3,'P-102','Cable CAT6','Cable de red 1m',NULL,NULL,20.00,200,'active','2025-10-31 22:43:33','2025-10-31 22:43:33'),(4,'RB-e1f18bdf','RB Product 3',NULL,NULL,NULL,30.00,2,'active','2025-10-31 22:43:37','2025-10-31 22:43:37'),(5,'RB-dce0f6c7','RB Product 3',NULL,NULL,NULL,30.00,2,'active','2025-10-31 23:10:21','2025-10-31 23:10:21');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -712,7 +712,7 @@ CREATE TABLE `ticket` (
   CONSTRAINT `fk_ticket_assigned` FOREIGN KEY (`assigned_to`) REFERENCES `app_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_ticket_client` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`) ON UPDATE CASCADE,
   CONSTRAINT `CONSTRAINT_1` CHECK (`due_at` is null or `due_at` >= `created_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -721,7 +721,7 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
-INSERT INTO `ticket` VALUES (1,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-10-31 15:46:03',NULL,NULL,NULL),(2,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-10-31 15:51:13',NULL,NULL,NULL),(3,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-10-31 15:59:53',NULL,NULL,NULL),(4,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-10-31 16:00:23',NULL,NULL,NULL),(5,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-10-31 16:00:55',NULL,NULL,NULL),(6,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-10-31 16:01:13',NULL,NULL,NULL),(7,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-10-31 16:14:56',NULL,NULL,NULL),(8,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-10-31 16:24:27',NULL,NULL,NULL),(9,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-10-31 16:27:01',NULL,NULL,NULL),(10,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-10-31 16:34:09',NULL,NULL,NULL),(11,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-10-31 16:42:39',NULL,NULL,NULL),(12,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-10-31 16:43:03',NULL,NULL,NULL);
+INSERT INTO `ticket` VALUES (1,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-10-31 16:43:37',NULL,NULL,NULL),(2,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-10-31 17:10:21',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -827,4 +827,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-31 16:43:31
+-- Dump completed on 2025-10-31 17:11:47

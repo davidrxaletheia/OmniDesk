@@ -1,0 +1,58 @@
+Título corto
+Resumen y next steps — Calendario/Alertas (work done hoy)
+
+Resumen de lo que hicimos hoy (rápido)
+
+Añadimos soporte de calendario y alertas:
+Wrapper de alertas: alert_repo.py
+Rutas de alertas: alerts.py (POST /api/alerts, GET /api/alerts, GET /api/alerts/pending)
+Script de procesamiento de alertas: process_alerts.py (marca sent)
+Auto‑crear evento al crear ticket:
+tickets.py ahora crea un CalendarEvent si el body incluye due_at o create_event: true (evento por defecto 1h).
+Vista unificada de calendario:
+calendar.py expone GET /api/calendar/view?start=&end= que devuelve un array combinado de events, tickets (por due_at) y alerts.
+Documentación del contrato UI: CALENDAR_API.md (formato JSON listo para FullCalendar).
+Integración en la app:
+main.py actualizado para registrar las rutas nuevas.
+Tests: no añadimos tests automatizados nuevos para calendario/alerts aún (pendiente).
+Archivos añadidos/modificados clave
+
+Añadidos:
+alert_repo.py
+alerts.py
+calendar.py
+process_alerts.py
+CALENDAR_API.md
+Modificados:
+tickets.py (auto-create event)
+main.py (registro de routers)
+Comandos útiles para cuando regreses (PowerShell)
+
+Levantar servidor:
+Obtener token con usuario de prueba x0chipa:
+Probar vista del calendario (rango ejemplo):
+Crear ticket que genere evento:
+Crear alerta:
+Procesar alertas manualmente:
+Ejecutar tests (si tu entorno tiene pytest):
+Qué deberías hacer cuando regreses (prioridades)
+
+Verificar en local:
+Levanta el servidor y reproduce: login -> crear ticket con create_event -> ver /api/calendar/view.
+Crear una alerta y ejecutar process_alerts.py para ver que cambia sent.
+Añadir tests automáticos (importante):
+Test: crear ticket → comprobar que existe evento (auto-create).
+Test: crear alerta → comprobar GET /api/alerts/pending.
+Test: ejecutar process_alerts.py → comprobar sent=1.
+Mejoras sugeridas (próximos PRs):
+Integrar envío real en process_alerts.py (SMTP / webhook) y reintentos.
+Encapsular consulta por rango due_at en TicketRepo (evitar usar _legacy desde routes).
+Hacer transacción/atomicidad si quieres que ticket+evento se creen juntos o fallen juntos.
+UI demo: crear una página mínima (FullCalendar) que consuma /api/calendar/view.
+Eliminar fallback de AppUserRepo cuando normalices datos legacy.
+Notas rápidas / riesgos
+
+process_alerts.py actualmente sólo marca sent=1 — no envía notificaciones reales.
+Creación de ticket + evento no es transaccional; si necesitas consistencia fuerte, hay que implementarla.
+Asegúrate de rotar/guardar SECRET_KEY y usar HTTPS en producción.
+Listo: esto es lo esencial para que en 1–2 minutos te pongas al día cuando regreses.
