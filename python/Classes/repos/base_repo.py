@@ -51,11 +51,29 @@ class BaseRepo:
 
     # ------- CRUD -------
     def create(self, data: Dict[str, Any]) -> int:
-        cols = ", ".join(data.keys())
-        placeholders = ", ".join(["%s"]*len(data))
-        sql = f"INSERT INTO {self.table} ({cols}) VALUES ({placeholders})"
+        # Filter data to actual table columns to avoid INSERT errors when
+        # callers pass extra keys not present in the legacy schema.
         cur = self.db.cursor()
-        cur.execute(sql, list(data.values()))
+        try:
+            cur.execute(f"SHOW COLUMNS FROM {self.table}")
+            table_cols = [r[0] for r in cur.fetchall()]
+        except Exception:
+            # If SHOW COLUMNS fails (permissions or DB differences), fall back
+            # to attempting the insert with provided keys.
+            table_cols = None
+
+        if table_cols is not None:
+            filtered = {k: v for k, v in data.items() if k in table_cols}
+        else:
+            filtered = data
+
+        if not filtered:
+            raise ValueError("No valid columns to insert for table %s" % self.table)
+
+        cols = ", ".join(filtered.keys())
+        placeholders = ", ".join(["%s"] * len(filtered))
+        sql = f"INSERT INTO {self.table} ({cols}) VALUES ({placeholders})"
+        cur.execute(sql, list(filtered.values()))
         if not self.db.autocommit: self.db.commit()
         return getattr(cur, "lastrowid", None)
 

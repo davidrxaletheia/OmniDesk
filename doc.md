@@ -19,11 +19,14 @@ Qué: inspeccionar el repo actual (models Pydantic, repos, DB access) y document
 Entregable: API_CONTRACT.md (endpoints, parámetros, respuestas de ejemplo).
 Criterio de aceptación: el frontend developer puede implementar llamadas sin consultar el backend (ej.: tiene ejemplos curl/postman).
 Tiempo estimado: 1–2 horas.
+
 Poner entorno reproducible
 Qué: crear/actualizar requirements.txt y .env.example, y extender README.md con pasos de setup (crear venv, instalar, variables env).
 Entregable: requirements.txt, .env.example, README.md (start dev).
+
 Criterio: otro dev puede clonar y levantar la app localmente en < 15 minutos siguiendo README.
 Notas: incluir instrucciones de la versión de Python.
+
 Implementar servidor FastAPI (sync)
 Qué: crear python/api_server.py con FastAPI y endpoints mínimos:
 POST /api/login
@@ -34,6 +37,7 @@ GET /api/users
 Reusar: Classes.repos.* para la lógica de datos; serializar Pydantic a JSON con ISO datetimes.
 Entregable: python/api_server.py
 Criterio: /docs funciona y muestra endpoints; GET /api/events devuelve JSON con eventos.
+
 Autenticación y seguridad
 Qué: implementar JWT (PyJWT) para autenticación; endpoint /api/login devuelve token. Añadir dependencia get_current_user.
 Entregable: auth utilities + protección de endpoints sensibles.
