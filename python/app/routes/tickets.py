@@ -2,6 +2,7 @@ from fastapi import APIRouter, Query, Depends
 from typing import Optional, Literal
 from pydantic import BaseModel
 from ..repos.ticket_repo import TicketRepo
+from ..repos.client_repo import ClientRepo
 from ..repos.calendar_repo import CalendarRepo
 from ..utils.serializers import to_jsonable, parse_iso_datetime
 from ..core.deps import get_current_user, require_employee_or_admin
@@ -31,7 +32,18 @@ def create_ticket(body: TicketCreate, current_user=Depends(get_current_user)):
     # Do not assume the legacy DB/table contains a `created_by` column.
     # Only include fields provided by the client and let the legacy repo
     # decide what columns to persist.
-    ticket = TicketRepo().create(data)
+    # Validate client exists before attempting DB insert to provide clearer error
+    cid = data.get('client_id')
+    if cid is None or ClientRepo().get(cid) is None:
+        from fastapi import HTTPException
+        raise HTTPException(status_code=400, detail=f"client_id {cid} no existe")
+
+    try:
+        ticket = TicketRepo().create(data)
+    except Exception as exc:
+        from fastapi import HTTPException
+        # surface DB/constraint errors as 400 with message to help debugging
+        raise HTTPException(status_code=400, detail=str(exc))
     # legacy create() returns the new row id (int). If so, fetch the created
     # record back via repo.get(). Otherwise assume it's already a model.
     if isinstance(ticket, int):

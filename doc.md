@@ -50,6 +50,7 @@ Endpoints CRUD y pruebas
 Qué: CRUD básico (list/get/create) para tickets y events; pruebas unitarias con pytest (endpoints simulan DB usando una DB de test o mocks).
 Entregable: tests en python/tests/.
 Criterio: tests principales pasan; endpoints cubiertos.
+
 Página HTML simple de prueba
 Qué: src/project-html-simple/dashboard/calendar_simple.html. Muy simple:
 Hace fetch a /api/events?start=&end= y muestra una tabla o lista.
