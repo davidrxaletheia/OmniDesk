@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routes import auth
 from .routes import summary, events, tickets, users  # routers implemented below
-from .routes import products, clients, orders, alerts, calendar
+from .routes import products, clients, orders, alerts, calendar, categories, catalogs, catalog_products
 from fastapi.openapi.utils import get_openapi
 
 
@@ -33,6 +33,9 @@ app.include_router(clients.router, prefix="/api")
 app.include_router(orders.router, prefix="/api")
 app.include_router(alerts.router, prefix="/api")
 app.include_router(calendar.router, prefix="/api")
+app.include_router(categories.router, prefix="/api")
+app.include_router(catalogs.router, prefix="/api")
+app.include_router(catalog_products.router, prefix="/api")
 # app.include_router(ai.router, prefix="/api")
 
 

@@ -169,7 +169,8 @@ CREATE TABLE catalog (
   name                VARCHAR(120) NOT NULL,
   description         TEXT,
   discount_percentage DECIMAL(5,2) NOT NULL DEFAULT 0.00 CHECK (discount_percentage >= 0 AND discount_percentage <= 100),
-  start_date          DATE NULL,
+  -- si no se especifica, es la fecha actual al activar el catálogo
+  start_date          DATE NULL DEFAULT CURRENT_DATE,
   end_date            DATE NULL,
   visible_to          ENUM('todos','premium','interno') NOT NULL DEFAULT 'todos',
   active              BOOLEAN NOT NULL DEFAULT TRUE,  -- BOOLEAN es alias de TINYINT(1) en MySQL
@@ -524,17 +525,6 @@ BEGIN
   END IF;
 END//
 DELIMITER ;
-
-
-
-
-
-
-
-
-
-
-
 
 
 -- Conversaciones
