@@ -46,5 +46,14 @@ class InvoiceModel(OMBase):
     issued_at: Optional[datetime] = None
     due_at: Optional[datetime] = None
     currency_code: str = 'MXN'
+    exchange_rate: Optional[Decimal] = None
+    billing_name: Optional[str] = None
+    rfc: Optional[str] = None
+    regimen_fiscal: Optional[str] = None
+    fiscal_postal_code: Optional[str] = None
+    billing_address: Optional[str] = None
+    uso_cfdi: Optional[str] = None
+    forma_pago: Optional[str] = None
+    metodo_pago: Optional[str] = None
     status: Literal['emitida','pagada','parcial','cancelada'] = 'emitida'
     notes: Optional[str] = None

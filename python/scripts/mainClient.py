@@ -204,7 +204,6 @@ def update_client_via_api(client_id: int, data: dict):
     pprint(body)
     return body
 
-
 if __name__ == '__main__':
 
     #LIST CLIENTS BY TYPE
@@ -213,16 +212,6 @@ if __name__ == '__main__':
     print('\n\n')
 
     list_clients_by_type('premium', limit=10)
-
-
-    a = identify_client(telegram_username='x0chi', telegram_user_id=952408)
-
-    print('\n\n')
-    print(a.get('client'))
-    print('\n\n')
-    print(a.get('token'))
-
-
     update_client_via_api(12, {'client_type': 'premium'})
 
     """

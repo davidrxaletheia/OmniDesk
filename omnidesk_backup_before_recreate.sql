@@ -88,7 +88,7 @@ CREATE TABLE `app_user` (
 
 LOCK TABLES `app_user` WRITE;
 /*!40000 ALTER TABLE `app_user` DISABLE KEYS */;
-INSERT INTO `app_user` VALUES (1,'Administrador General','admin','admin@omnidesk.com','$2b$12$Tnp7mWq0gXIZAX9Z6bepl.ajtYyFhaSLOpA1bTXkg10uA5p3ddoKO','admin',1,NULL,NULL,0,NULL,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(2,'Empleado de Ventas','employee','empleado@omnidesk.com','$2b$12$.Iusm2fiQesSE8r2H7cUc.WEjFywL94HF85GqfcguzJy7fFJ/rq4W','empleado',1,NULL,NULL,0,NULL,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(3,'Dev Seed x0chipa','x0chipa','dev+x0chipa@example.test','$2b$12$IaU2DuKJ7PyCdpE9p0GS9eud1YXeKQZI6wN//Nl2LWQN5/DP4LTma','admin',1,NULL,NULL,0,NULL,'2025-11-04 18:25:37','2025-11-04 18:25:37');
+INSERT INTO `app_user` VALUES (1,'Administrador General','admin','admin@omnidesk.com','$2b$12$o2llf131gI0.6K5vQjKg/.ku3DryCT/jUS49KjMY5aDeAn5U5/mfe','admin',1,NULL,NULL,0,NULL,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(2,'Empleado de Ventas','employee','empleado@omnidesk.com','$2b$12$1O.VV5bhJFuQHQgiJ0aNJOBeJyOk9PhkJ0hCB.fd5vGZlZTBhZCta','empleado',1,NULL,NULL,0,NULL,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(3,'Dev Seed x0chipa','x0chipa','dev+x0chipa@example.test','$2b$12$D7Xj5yMEYTRRvBup..KKKe9DJrpnthMCpQNM.fwo6Iei4ppAB0oQS','admin',1,NULL,NULL,0,NULL,'2025-11-04 21:16:12','2025-11-04 21:16:12');
 /*!40000 ALTER TABLE `app_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +149,7 @@ CREATE TABLE `catalog` (
   UNIQUE KEY `uq_catalog_name` (`name`),
   KEY `idx_catalog_active_dates` (`active`,`start_date`,`end_date`,`visible_to`),
   CONSTRAINT `chk_catalog_dates` CHECK (`end_date` is null or `start_date` is null or `start_date` <= `end_date`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +158,7 @@ CREATE TABLE `catalog` (
 
 LOCK TABLES `catalog` WRITE;
 /*!40000 ALTER TABLE `catalog` DISABLE KEYS */;
-INSERT INTO `catalog` VALUES (1,'Black Friday','Descuentos especiales de temporada',25.00,'2025-11-04','2025-12-04','todos',1,'2025-11-04 18:25:37','2025-11-04 18:25:37'),(2,'Clientes Premium','Ofertas exclusivas para clientes premium',15.00,'2025-11-04','2025-12-04','premium',1,'2025-11-04 18:25:37','2025-11-04 18:25:37'),(3,'Verano Tech','Descuentos en electrónica y gadgets',10.00,'2025-11-04','2025-12-04','todos',1,'2025-11-04 18:25:37','2025-11-04 18:25:37'),(4,'Buewn Fin','promciones de fin de año',25.00,'2025-12-10','2025-12-31','todos',1,'2025-11-04 18:31:15','2025-11-04 18:31:15');
+INSERT INTO `catalog` VALUES (1,'Black Friday','Descuentos especiales de temporada',25.00,'2025-11-04','2025-12-04','todos',1,'2025-11-04 21:16:12','2025-11-04 21:16:12'),(2,'Clientes Premium','Ofertas exclusivas para clientes premium',15.00,'2025-11-04','2025-12-04','premium',1,'2025-11-04 21:16:12','2025-11-04 21:16:12'),(3,'Verano Tech','Descuentos en electrónica y gadgets',10.00,'2025-11-04','2025-12-04','todos',1,'2025-11-04 21:16:12','2025-11-04 21:16:12');
 /*!40000 ALTER TABLE `catalog` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,7 +187,7 @@ CREATE TABLE `catalog_product` (
 
 LOCK TABLES `catalog_product` WRITE;
 /*!40000 ALTER TABLE `catalog_product` DISABLE KEYS */;
-INSERT INTO `catalog_product` VALUES (1,1,NULL,11),(1,6,NULL,6),(1,8,NULL,71),(1,9,NULL,4),(1,11,NULL,4),(1,12,NULL,10),(1,13,NULL,66),(1,16,NULL,3),(1,17,NULL,5),(1,18,NULL,3),(2,3,NULL,8),(2,4,NULL,16),(2,5,NULL,5),(2,6,NULL,2),(2,7,NULL,26),(2,8,NULL,94),(2,10,NULL,1),(2,13,NULL,145),(2,19,NULL,24),(2,20,NULL,11),(3,1,NULL,1),(3,8,NULL,84),(3,10,NULL,2),(3,13,NULL,165),(3,15,NULL,1),(3,19,NULL,11),(3,20,NULL,13);
+INSERT INTO `catalog_product` VALUES (1,1,NULL,1),(1,2,NULL,7),(1,7,NULL,2),(1,10,NULL,2),(1,20,NULL,8),(2,1,NULL,9),(2,6,NULL,1),(2,7,NULL,5),(2,8,NULL,15),(2,9,NULL,2),(2,13,NULL,176),(2,15,NULL,13),(2,17,NULL,11),(2,18,NULL,2),(2,20,NULL,3),(3,1,NULL,5),(3,7,NULL,1),(3,8,NULL,25),(3,9,NULL,3),(3,16,NULL,1),(3,18,NULL,1),(3,19,NULL,18);
 /*!40000 ALTER TABLE `catalog_product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -283,7 +283,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'Electrónica',NULL,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(2,'Computadoras',1,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(3,'Smartphones',1,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(4,'Accesorios',1,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(5,'Redes',1,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(6,'Audio y Video',1,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(7,'Hogar y Oficina',NULL,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(8,'Muebles',7,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(9,'Electrodomésticos',7,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(10,'Papelería',7,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(11,'Decoración',7,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(12,'Moda',NULL,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(13,'Ropa',12,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(14,'Zapatos',12,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(15,'Accesorios de Moda',12,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(16,'Deportes',NULL,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(17,'Fitness',16,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(18,'Ciclismo',16,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(19,'Natación',16,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(20,'Senderismo',16,'2025-11-04 18:25:36','2025-11-04 18:25:36'),(21,'test-cat-1762280740',NULL,'2025-11-04 18:25:40','2025-11-04 18:25:40');
+INSERT INTO `category` VALUES (1,'Electrónica',NULL,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(2,'Computadoras',1,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(3,'Smartphones',1,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(4,'Accesorios',1,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(5,'Redes',1,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(6,'Audio y Video',1,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(7,'Hogar y Oficina',NULL,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(8,'Muebles',7,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(9,'Electrodomésticos',7,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(10,'Papelería',7,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(11,'Decoración',7,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(12,'Moda',NULL,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(13,'Ropa',12,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(14,'Zapatos',12,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(15,'Accesorios de Moda',12,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(16,'Deportes',NULL,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(17,'Fitness',16,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(18,'Ciclismo',16,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(19,'Natación',16,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(20,'Senderismo',16,'2025-11-04 21:16:11','2025-11-04 21:16:11'),(21,'test-cat-1762290975',NULL,'2025-11-04 21:16:15','2025-11-04 21:16:15');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -328,7 +328,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (1,'María López','+5215512345678','maria@example.com',NULL,NULL,'normal','active','2025-11-04 12:25:36','2025-11-04 18:25:36',NULL,NULL,NULL),(2,'Carlos Hernández','+5215511111111','carlos@example.com',NULL,NULL,'normal','active','2025-11-04 12:25:36','2025-11-04 18:25:36',NULL,NULL,NULL),(3,'Ana Pérez','+5215522222222','ana@example.com',NULL,NULL,'normal','active','2025-11-04 12:25:36','2025-11-04 18:25:36',NULL,NULL,NULL),(4,'Luis González','+5215533333333','luis@example.com',NULL,NULL,'normal','active','2025-11-04 12:25:36','2025-11-04 18:25:36',NULL,NULL,NULL),(5,'Fernanda Castillo','+5215544444444','fer@example.com',NULL,NULL,'normal','active','2025-11-04 12:25:36','2025-11-04 18:25:36',NULL,NULL,NULL),(6,'Ana Cliente','+521ddfcaf24','ana.client+0ed8a3c1@example.com',NULL,NULL,'normal','active','2025-11-04 12:25:40','2025-11-04 18:25:40',NULL,NULL,NULL),(7,'Premium Test','97703cbdf','prem+7703cbdf@test.com',NULL,NULL,'premium','active','2025-11-04 12:25:40','2025-11-04 18:25:40',NULL,NULL,NULL);
+INSERT INTO `client` VALUES (1,'María López','+5215512345678','maria@example.com',NULL,NULL,'normal','active','2025-11-04 15:16:11','2025-11-04 21:16:11',NULL,NULL,NULL),(2,'Carlos Hernández','+5215511111111','carlos@example.com',NULL,NULL,'normal','active','2025-11-04 15:16:11','2025-11-04 21:16:11',NULL,NULL,NULL),(3,'Ana Pérez','+5215522222222','ana@example.com',NULL,NULL,'normal','active','2025-11-04 15:16:11','2025-11-04 21:16:11',NULL,NULL,NULL),(4,'Luis González','+5215533333333','luis@example.com',NULL,NULL,'normal','active','2025-11-04 15:16:11','2025-11-04 21:16:11',NULL,NULL,NULL),(5,'Fernanda Castillo','+5215544444444','fer@example.com',NULL,NULL,'normal','active','2025-11-04 15:16:11','2025-11-04 21:16:11',NULL,NULL,NULL),(6,'Ana Cliente','+5212e24cb29','ana.client+86f8ec13@example.com',NULL,NULL,'normal','active','2025-11-04 15:16:15','2025-11-04 21:16:15',NULL,NULL,NULL),(7,'Premium Test','91e4f06f1','prem+1e4f06f1@test.com',NULL,NULL,'premium','active','2025-11-04 15:16:16','2025-11-04 21:16:16',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -406,34 +406,9 @@ CREATE TABLE `customer_order` (
 
 LOCK TABLES `customer_order` WRITE;
 /*!40000 ALTER TABLE `customer_order` DISABLE KEYS */;
-INSERT INTO `customer_order` VALUES (1,6,'2025-11-04 12:25:40','2025-11-04 18:25:40','borrador','pendiente',14500.00,0.00,0.00,0.00,14500.00,'Order from test',NULL,NULL),(2,7,'2025-11-04 12:25:40','2025-11-04 18:25:40','borrador','pendiente',14500.00,1450.00,0.00,0.00,13050.00,'Premium order',NULL,NULL);
+INSERT INTO `customer_order` VALUES (1,6,'2025-11-04 15:16:15','2025-11-04 21:16:15','borrador','pendiente',14500.00,0.00,0.00,0.00,14500.00,'Order from test',NULL,NULL),(2,7,'2025-11-04 15:16:16','2025-11-04 21:16:16','borrador','pendiente',14500.00,1450.00,0.00,0.00,13050.00,'Premium order',NULL,NULL);
 /*!40000 ALTER TABLE `customer_order` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = cp850 */ ;
-/*!50003 SET character_set_results = cp850 */ ;
-/*!50003 SET collation_connection  = cp850_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER trg_order_require_invoice
-BEFORE UPDATE ON customer_order
-FOR EACH ROW
-BEGIN
-  IF NEW.status IN ('confirmado','preparando','enviado','entregado','devuelto') THEN
-    IF (SELECT COUNT(*) FROM invoice WHERE order_id = NEW.order_id) = 0 THEN
-      SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'El pedido requiere al menos una factura para cambiar a ese estado.';
-    END IF;
-  END IF;
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `invoice`
@@ -684,7 +659,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'EL-1001','Laptop HP Pavilion 15','Intel i5, 8GB RAM, 512GB SSD',NULL,2,14500.00,25,'active','2025-11-04 18:25:36','2025-11-04 18:25:36'),(2,'EL-1002','Apple iPhone 14 128GB','Pantalla OLED de 6.1 pulgadas, cámara dual',NULL,3,18500.00,15,'active','2025-11-04 18:25:36','2025-11-04 18:25:36'),(3,'EL-1003','Audífonos Sony WH-1000XM5','Cancelación activa de ruido',NULL,6,6800.00,30,'active','2025-11-04 18:25:36','2025-11-04 18:25:36'),(4,'EL-1004','Teclado Mecánico Logitech G Pro','Switches GX Blue, RGB',NULL,4,2200.00,40,'active','2025-11-04 18:25:36','2025-11-04 18:25:36'),(5,'EL-1005','Router TP-Link Archer AX50','Wi-Fi 6, Dual Band, 3 Gbps',NULL,5,2100.00,20,'active','2025-11-04 18:25:36','2025-11-04 18:25:36'),(6,'EL-1006','Monitor Dell Ultrasharp 27\"','Resolución QHD, panel IPS',NULL,2,7200.00,18,'active','2025-11-04 18:25:36','2025-11-04 18:25:36'),(7,'EL-1007','Disco Duro Externo Seagate 2TB','USB 3.0, portátil',NULL,4,1500.00,60,'active','2025-11-04 18:25:36','2025-11-04 18:25:36'),(8,'EL-1008','Cable HDMI 2.1 2m','Soporta 8K UHD y HDR',NULL,4,180.00,200,'active','2025-11-04 18:25:36','2025-11-04 18:25:36'),(9,'HO-2001','Silla Ergonómica de Oficina','Respaldo de malla, soporte lumbar',NULL,8,3200.00,12,'active','2025-11-04 18:25:36','2025-11-04 18:25:36'),(10,'HO-2002','Escritorio de Madera 120cm','Color nogal con estructura metálica',NULL,8,2800.00,10,'active','2025-11-04 18:25:36','2025-11-04 18:25:36'),(11,'HO-2003','Refrigerador LG Smart Inverter','Capacidad 420L, eficiencia A+',NULL,9,9800.00,8,'active','2025-11-04 18:25:37','2025-11-04 18:25:37'),(12,'HO-2004','Lámpara de Escritorio LED','Luz blanca cálida, regulable',NULL,11,450.00,100,'active','2025-11-04 18:25:37','2025-11-04 18:25:37'),(13,'HO-2005','Paquete de hojas tamaño carta','500 hojas blancas',NULL,10,95.00,400,'active','2025-11-04 18:25:37','2025-11-04 18:25:37'),(14,'MO-3001','Playera Nike Dri-FIT','Tela transpirable, color negro',NULL,13,550.00,80,'active','2025-11-04 18:25:37','2025-11-04 18:25:37'),(15,'MO-3002','Tenis Adidas Ultraboost 23','Amortiguación premium',NULL,14,2800.00,40,'active','2025-11-04 18:25:37','2025-11-04 18:25:37'),(16,'MO-3003','Reloj Casio Vintage Dorado','Resistente al agua, estilo clásico',NULL,15,900.00,30,'active','2025-11-04 18:25:37','2025-11-04 18:25:37'),(17,'DE-4001','Mancuernas Ajustables 24kg','Set ajustable con selector rápido',NULL,17,3500.00,25,'active','2025-11-04 18:25:37','2025-11-04 18:25:37'),(18,'DE-4002','Bicicleta de Montaña Trek Marlin 7','Cuadro de aluminio, frenos de disco',NULL,18,15800.00,6,'active','2025-11-04 18:25:37','2025-11-04 18:25:37'),(19,'DE-4003','Gafas de Natación Speedo Aquapulse','Antivaho y protección UV',NULL,19,480.00,50,'active','2025-11-04 18:25:37','2025-11-04 18:25:37'),(20,'DE-4004','Mochila de Senderismo 50L','Impermeable con soporte lumbar',NULL,20,1200.00,35,'active','2025-11-04 18:25:37','2025-11-04 18:25:37'),(21,'RB-4eb16dca','RB Product 3',NULL,NULL,NULL,30.00,2,'active','2025-11-04 18:25:40','2025-11-04 18:25:40');
+INSERT INTO `product` VALUES (1,'EL-1001','Laptop HP Pavilion 15','Intel i5, 8GB RAM, 512GB SSD',NULL,2,14500.00,25,'active','2025-11-04 21:16:11','2025-11-04 21:16:11'),(2,'EL-1002','Apple iPhone 14 128GB','Pantalla OLED de 6.1 pulgadas, cámara dual',NULL,3,18500.00,15,'active','2025-11-04 21:16:11','2025-11-04 21:16:11'),(3,'EL-1003','Audífonos Sony WH-1000XM5','Cancelación activa de ruido',NULL,6,6800.00,30,'active','2025-11-04 21:16:11','2025-11-04 21:16:11'),(4,'EL-1004','Teclado Mecánico Logitech G Pro','Switches GX Blue, RGB',NULL,4,2200.00,40,'active','2025-11-04 21:16:11','2025-11-04 21:16:11'),(5,'EL-1005','Router TP-Link Archer AX50','Wi-Fi 6, Dual Band, 3 Gbps',NULL,5,2100.00,20,'active','2025-11-04 21:16:11','2025-11-04 21:16:11'),(6,'EL-1006','Monitor Dell Ultrasharp 27\"','Resolución QHD, panel IPS',NULL,2,7200.00,18,'active','2025-11-04 21:16:11','2025-11-04 21:16:11'),(7,'EL-1007','Disco Duro Externo Seagate 2TB','USB 3.0, portátil',NULL,4,1500.00,60,'active','2025-11-04 21:16:11','2025-11-04 21:16:11'),(8,'EL-1008','Cable HDMI 2.1 2m','Soporta 8K UHD y HDR',NULL,4,180.00,200,'active','2025-11-04 21:16:11','2025-11-04 21:16:11'),(9,'HO-2001','Silla Ergonómica de Oficina','Respaldo de malla, soporte lumbar',NULL,8,3200.00,12,'active','2025-11-04 21:16:11','2025-11-04 21:16:11'),(10,'HO-2002','Escritorio de Madera 120cm','Color nogal con estructura metálica',NULL,8,2800.00,10,'active','2025-11-04 21:16:11','2025-11-04 21:16:11'),(11,'HO-2003','Refrigerador LG Smart Inverter','Capacidad 420L, eficiencia A+',NULL,9,9800.00,8,'active','2025-11-04 21:16:11','2025-11-04 21:16:11'),(12,'HO-2004','Lámpara de Escritorio LED','Luz blanca cálida, regulable',NULL,11,450.00,100,'active','2025-11-04 21:16:11','2025-11-04 21:16:11'),(13,'HO-2005','Paquete de hojas tamaño carta','500 hojas blancas',NULL,10,95.00,400,'active','2025-11-04 21:16:11','2025-11-04 21:16:11'),(14,'MO-3001','Playera Nike Dri-FIT','Tela transpirable, color negro',NULL,13,550.00,80,'active','2025-11-04 21:16:11','2025-11-04 21:16:11'),(15,'MO-3002','Tenis Adidas Ultraboost 23','Amortiguación premium',NULL,14,2800.00,40,'active','2025-11-04 21:16:12','2025-11-04 21:16:12'),(16,'MO-3003','Reloj Casio Vintage Dorado','Resistente al agua, estilo clásico',NULL,15,900.00,30,'active','2025-11-04 21:16:12','2025-11-04 21:16:12'),(17,'DE-4001','Mancuernas Ajustables 24kg','Set ajustable con selector rápido',NULL,17,3500.00,25,'active','2025-11-04 21:16:12','2025-11-04 21:16:12'),(18,'DE-4002','Bicicleta de Montaña Trek Marlin 7','Cuadro de aluminio, frenos de disco',NULL,18,15800.00,6,'active','2025-11-04 21:16:12','2025-11-04 21:16:12'),(19,'DE-4003','Gafas de Natación Speedo Aquapulse','Antivaho y protección UV',NULL,19,480.00,50,'active','2025-11-04 21:16:12','2025-11-04 21:16:12'),(20,'DE-4004','Mochila de Senderismo 50L','Impermeable con soporte lumbar',NULL,20,1200.00,35,'active','2025-11-04 21:16:12','2025-11-04 21:16:12'),(21,'RB-b96f880c','RB Product 3',NULL,NULL,NULL,30.00,2,'active','2025-11-04 21:16:16','2025-11-04 21:16:16');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -724,7 +699,7 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
-INSERT INTO `ticket` VALUES (1,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-11-04 12:25:40',NULL,NULL,NULL);
+INSERT INTO `ticket` VALUES (1,1,'Test ticket from pytest','Created during automated test','media','abierto','2025-11-04 15:16:16',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -830,4 +805,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-04 13:08:28
+-- Dump completed on 2025-11-04 15:41:19

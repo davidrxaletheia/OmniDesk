@@ -220,6 +220,16 @@ Propósito: facturas asociadas a pedidos.
 Columnas:
 - `invoice_id`, `order_id` FK, `invoice_number`, `series`, `issued_at`, `due_at`, `currency_code`, `status`
 - UNIQUE (order_id, invoice_number)
+ - Campos adicionales (información fiscal / facturación):
+   - `billing_name` VARCHAR(150) NULL — Nombre / Razón social del receptor
+   - `rfc` VARCHAR(13) NULL — RFC del receptor (si aplica)
+   - `regimen_fiscal` VARCHAR(120) NULL — Régimen fiscal (CFDI)
+   - `fiscal_postal_code` VARCHAR(10) NULL — Código Postal del domicilio fiscal (CFDI)
+   - `billing_address` TEXT NULL — Dirección para comprobante interno / logística
+   - `uso_cfdi` VARCHAR(10) NULL — Uso CFDI (si timbras)
+   - `forma_pago` VARCHAR(50) NULL — Forma de pago (si timbras)
+   - `metodo_pago` VARCHAR(50) NULL — Método de pago (si timbras)
+   - `exchange_rate` DECIMAL(18,6) NULL — Tipo de cambio si aplica
 
 Triggers:
 - `trg_invoice_before_delete` impide borrar la última factura si el pedido aún activo (no en borrador/cancelado).

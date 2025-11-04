@@ -417,10 +417,20 @@ CREATE TABLE invoice (
   invoice_id      INT AUTO_INCREMENT PRIMARY KEY,
   order_id        INT NOT NULL,
   invoice_number  VARCHAR(40) NOT NULL,            -- número de factura por pedido
+  -- Información fiscal / de facturación
+  billing_name    VARCHAR(150) NULL,              -- Nombre / Razón social del receptor
+  rfc             VARCHAR(13) NULL,               -- RFC del receptor (si aplica)
+  regimen_fiscal  VARCHAR(120) NULL,              -- Régimen fiscal (CFDI)
+  fiscal_postal_code VARCHAR(10) NULL,            -- CP del domicilio fiscal (CFDI)
+  billing_address TEXT NULL,                      -- Dirección para comprobante interno / logística
+  uso_cfdi        VARCHAR(10) NULL,               -- Uso CFDI (si timbras)
+  forma_pago      VARCHAR(50) NULL,               -- Forma de pago (si timbras)
+  metodo_pago     VARCHAR(50) NULL,               -- Método de pago (si timbras)
   series          VARCHAR(10) NULL,                -- opcional: serie
   issued_at       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   due_at          DATETIME NULL,
   currency_code   CHAR(3) NOT NULL DEFAULT 'MXN',
+  exchange_rate   DECIMAL(18,6) NULL,             -- Tipo de cambio si aplica (null si no se usa)
   status          ENUM('emitida','pagada','parcial','cancelada') NOT NULL DEFAULT 'emitida',
   notes           TEXT NULL,
 
@@ -486,20 +496,7 @@ FOR EACH ROW BEGIN
 END//
 DELIMITER ;
 
--- Trigger: exigir al menos una factura para avanzar de 'borrador'
-DELIMITER //
-CREATE TRIGGER trg_order_require_invoice
-BEFORE UPDATE ON customer_order
-FOR EACH ROW
-BEGIN
-  IF NEW.status IN ('confirmado','preparando','enviado','entregado','devuelto') THEN
-    IF (SELECT COUNT(*) FROM invoice WHERE order_id = NEW.order_id) = 0 THEN
-      SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'El pedido requiere al menos una factura para cambiar a ese estado.';
-    END IF;
-  END IF;
-END//
-DELIMITER ;
+
 
 -- Trigger: impedir borrar la última factura si el pedido no está en borrador/cancelado
 DELIMITER //
