@@ -141,7 +141,6 @@ def edit_client(client_id: int, full_name: Optional[str] = None, phone: Optional
         print('Error editando cliente:', repr(e))
         return None
 
-
 def list_clients_by_type(client_type: str, limit: int = 50):
     try:
         clients = client_repo.by_type(client_type, limit=limit)
@@ -156,18 +155,18 @@ def list_clients_by_type(client_type: str, limit: int = 50):
     except Exception as e:
         print('Error filtrando por tipo:', repr(e))
 
-
 def identify_client(telegram_username: Optional[str] = None, telegram_user_id: Optional[int] = None,
-                    create_if_missing: bool = False, full_name: Optional[str] = None):
+                    phone: Optional[str] = None, create_if_missing: bool = False, full_name: Optional[str] = None):
     """Identify a client by telegram username or id via POST /api/clients/identify.
 
     If create_if_missing is True and the client is not found, full_name must be
     provided to create the client.
-    Returns (client_obj, client_token) or (None, None) on failure.
+    Returns a dict {'client': client_obj, 'token': client_token} on success or None on failure.
     """
     payload = {
         'telegram_username': telegram_username,
         'telegram_user_id': telegram_user_id,
+        'phone': phone,
         'create_if_missing': create_if_missing,
         'full_name': full_name
     }
@@ -177,7 +176,7 @@ def identify_client(telegram_username: Optional[str] = None, telegram_user_id: O
     r = client.post('/api/clients/identify', json=payload)
     if r.status_code != 200:
         print('Identify fallido:', r.status_code, r.text)
-        return None, None
+        return None
     body = r.json()
     token = body.get('client_token') or body.get('access_token') or body.get('acces_token')
     client_obj = body.get('client')
@@ -185,7 +184,6 @@ def identify_client(telegram_username: Optional[str] = None, telegram_user_id: O
     pprint(client_obj)
     print('Token:', token)
     return {'client': client_obj, 'token': token}
-
 
 def update_client_via_api(client_id: int, data: dict):
     """Patch client via API endpoint PATCH /api/clients/{client_id}.
@@ -204,6 +202,91 @@ def update_client_via_api(client_id: int, data: dict):
     pprint(body)
     return body
 
+
+#Client auth and identification return the token.
+def client_auth(
+    telegram_user_id: int | str | None = None,
+    telegram_username: str | None = None,
+        create_if_missing: bool = False, 
+        full_name: Optional[str] = None, 
+        phone: Optional[str] = None,
+) -> dict:
+    """Authenticate a client by telegram_user_id or telegram_username.
+
+    If `create_if_missing` is True and the client is not found, `full_name` must be
+    provided to create the client (this is forwarded to the `/clients/identify` endpoint).
+
+    Returns a standardized dict:
+      { "ok": True, "data": { "client_token": str, "client": {...} }, "error": None }
+      or
+      { "ok": False, "data": None, "error": "not_found"|"missing_credentials"|"exception" }
+    """
+    # need at least one identifier (telegram id, username or phone)
+    if telegram_user_id is None and not telegram_username and not phone:
+        print('client_auth: telegram_user_id or telegram_username or phone required')
+        return {"ok": False, "data": None, "error": "missing_credentials"}
+
+    try:
+        # forward create_if_missing and full_name to the identify endpoint
+        kwargs = {
+            'telegram_user_id': telegram_user_id,
+            'telegram_username': telegram_username,
+            'create_if_missing': create_if_missing,
+            'full_name': full_name,
+                'phone': phone,
+        }
+        # remove None values so payload is minimal
+        kwargs = {k: v for k, v in kwargs.items() if v is not None}
+
+        res = identify_client(**kwargs)
+
+        if not res:
+            return {"ok": False, "data": None, "error": "not_found"}
+
+        # normalize possible shapes
+        token = None
+        client_obj = None
+        if isinstance(res, dict):
+            token = res.get('token') or res.get('client_token') or res.get('access_token')
+            client_obj = res.get('client') or res.get('client_obj') or res.get('client_data')
+            if not token and isinstance(res.get('data'), dict):
+                token = res['data'].get('client_token') or res['data'].get('token')
+                client_obj = client_obj or res['data'].get('client')
+
+        if not token:
+            # still return client info if present but no token (unexpected)
+            return {"ok": False, "data": None, "error": "no_token"}
+
+        return {"ok": True, "data": {"client_token": token, "client": client_obj}, "error": None}
+    except Exception as e:
+        print('Error en client_auth:', repr(e))
+        return {"ok": False, "data": None, "error": "exception"}
+
+
+def get_client_token(
+    telegram_user_id: int | str | None = None,
+    telegram_username: str | None = None,
+    create_if_missing: bool = False,
+    full_name: Optional[str] = None,
+    phone: Optional[str] = None,
+) -> Optional[str]:
+    """Convenience helper that returns the JWT token string or None on failure.
+
+    Example:
+      token = get_client_token(telegram_user_id=952408)
+    """
+    r = client_auth(
+        telegram_user_id=telegram_user_id,
+        telegram_username=telegram_username,
+        create_if_missing=create_if_missing,
+        full_name=full_name,
+        phone=phone,
+    )
+    if r.get('ok') and r.get('data'):
+        return r['data'].get('client_token')
+    return None
+
+
 if __name__ == '__main__':
 
     #LIST CLIENTS BY TYPE
@@ -211,8 +294,11 @@ if __name__ == '__main__':
 
     print('\n\n')
 
-    list_clients_by_type('premium', limit=10)
-    update_client_via_api(12, {'client_type': 'premium'})
+    token = get_client_token(phone='+5215512345678')
+
+    print(token)  # JWT string or None
+
+
 
     """
     ejemplo de como usar update_client_via_api

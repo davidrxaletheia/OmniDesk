@@ -16,8 +16,8 @@ class Settings(BaseSettings):
     JWT_LEEWAY_SECONDS: int = 5
     JWT_ALLOW_IAT_FALLBACK: bool = False
 
-    # Discount applied to premium clients (fractional, e.g. 0.10 = 10%)
-    PREMIUM_DISCOUNT_PCT: float = 0.10
+    # Discount applied to premium clients (fractional, e.g. 0.05 = 5%)
+    PREMIUM_DISCOUNT_PCT: float = 0.05
 
     APP_HOST: str = "0.0.0.0"
     APP_PORT: int = 8000

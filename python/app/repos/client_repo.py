@@ -34,3 +34,8 @@ class ClientRepo:
         """Return a single client model matching telegram_username or None."""
         rows = self._legacy.filter("telegram_username=%s", (telegram_username,), limit=1)
         return rows[0] if rows else None
+
+    def get_by_phone(self, phone: str):
+        """Return a single client model matching phone or None."""
+        rows = self._legacy.filter("phone=%s", (phone,), limit=1)
+        return rows[0] if rows else None

@@ -29,6 +29,7 @@ def create_client(body: ClientCreate):
 class ClientIdentify(BaseModel):
     telegram_username: Optional[str] = None
     telegram_user_id: Optional[int] = None
+    phone: Optional[str] = None
     # If true and full_name provided, create the client when not found
     create_if_missing: Optional[bool] = False
     full_name: Optional[str] = None
@@ -50,6 +51,9 @@ def identify_client(body: ClientIdentify):
     client = None
     if body.telegram_user_id:
         client = repo.get_by_telegram_id(body.telegram_user_id)
+    # try phone next (allow phone-based auth)
+    if not client and body.phone:
+        client = repo.get_by_phone(body.phone)
     if not client and body.telegram_username:
         client = repo.get_by_telegram_username(body.telegram_username)
 
@@ -67,6 +71,8 @@ def identify_client(body: ClientIdentify):
             data["telegram_username"] = body.telegram_username
         if body.telegram_user_id:
             data["telegram_user_id"] = body.telegram_user_id
+        if body.phone:
+            data["phone"] = body.phone
         try:
             cid = repo.create(data)
         except Exception as exc:
