@@ -701,5 +701,50 @@ CREATE INDEX idx_alert_time ON alert (alert_time);
 CREATE INDEX idx_alert_sent ON alert (sent, kind);
 
 
+-- ---------------------------------------------------------
+-- TABLA: cart, cart_item
+-- Propósito:
+--   Persistir carritos de compra de clientes (o guests) con
+--   snapshot de precios al momento de añadir el item.
+--   Al finalizar el pedido los datos se mantienen en las tablas
+--   de pedidos y el carrito puede eliminarse o marcarse como
+--   'checked_out'.
+-- ---------------------------------------------------------
+CREATE TABLE IF NOT EXISTS cart (
+  cart_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  client_id INT NULL,
+  status ENUM('active','checked_out','abandoned') NOT NULL DEFAULT 'active',
+  metadata JSON NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_cart_client FOREIGN KEY (client_id) REFERENCES client(client_id) ON DELETE SET NULL ON UPDATE CASCADE,
+  INDEX idx_cart_client (client_id),
+  INDEX idx_cart_status (status),
+  INDEX idx_cart_updated_at (updated_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS cart_item (
+  cart_item_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  cart_id BIGINT NOT NULL,
+  product_id INT NOT NULL,
+  quantity INT UNSIGNED NOT NULL,
+  unit_price DECIMAL(10,2) NOT NULL,
+  catalog_special_price DECIMAL(10,2) NULL,
+  applied_catalog_discount_pct DECIMAL(5,4) NULL,
+  final_price DECIMAL(10,2) NOT NULL,
+  sku VARCHAR(64) NULL,
+  product_name VARCHAR(255) NULL,
+  tax_rate DECIMAL(5,2) NULL,
+  added_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_ci_cart (cart_id),
+  INDEX idx_ci_product (product_id),
+  CONSTRAINT fk_ci_cart FOREIGN KEY (cart_id) REFERENCES cart(cart_id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Nota: el snapshot de precios (unit_price, catalog_special_price, final_price)
+-- permite auditar y facturar sin depender de cambios futuros en product/catalog.
+
+
 
 
