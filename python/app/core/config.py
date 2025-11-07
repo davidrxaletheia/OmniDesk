@@ -1,4 +1,4 @@
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
@@ -22,9 +22,13 @@ class Settings(BaseSettings):
     APP_HOST: str = "0.0.0.0"
     APP_PORT: int = 8000
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
+    # pydantic v2 / pydantic-settings: use `model_config` for configuration
+    model_config = {
+        "env_file": ".env",
+        "env_file_encoding": "utf-8",
+        # allow unknown/extra env vars (avoid ValidationError when many ENV are present)
+        "extra": "ignore",
+    }
 
 
 settings = Settings()

@@ -10,9 +10,13 @@ modelos de datos.
 from datetime import datetime, date
 from decimal import Decimal
 from typing import Optional, Literal
-from pydantic import BaseModel, Field, EmailStr, validator
+from pydantic import BaseModel, Field, EmailStr
+
 
 class OMBase(BaseModel):
-    class Config:
-        orm_mode = True
-        validate_assignment = True
+    # pydantic v2: replace inner `Config` with `model_config`.
+    # `orm_mode = True` is now `from_attributes = True`.
+    model_config = {
+        "from_attributes": True,
+        "validate_assignment": True,
+    }

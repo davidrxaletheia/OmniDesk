@@ -5,7 +5,7 @@ from python.Classes.repos.app_user_repo import AppUserRepo as LegacyAppUserRepo
 from python.Classes.db import DB
 from pydantic import BaseModel
 from typing import Optional
-from pydantic.error_wrappers import ValidationError
+from pydantic import ValidationError
 from ..core.security import hash_password
 
 
